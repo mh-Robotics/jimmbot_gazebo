@@ -33,7 +33,7 @@ SOFTWARE.
   <arg name="z" default="1.0"/>
   <arg name="yaw" default="0.0"/>
 
-  <include file="$(find jimmbot_control)/launch/controller.launch" />
+  <include file="$(find jimmbot_controller)/launch/controller.launch" />
 
   <!-- Spawn robot in gazebo -->
   <node name="spawn_jimmbot_robot" pkg="gazebo_ros" type="spawn_model"

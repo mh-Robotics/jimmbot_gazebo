@@ -16,7 +16,7 @@
 
   <buildtool_depend>catkin</buildtool_depend>
   <build_depend>roslaunch</build_depend>
-  <build_export_depend>roslaunch</build_export_depend>
+
   <exec_depend>roslaunch</exec_depend>
   <exec_depend>controller_manager</exec_depend>
   <exec_depend>gazebo_plugins</exec_depend>
@@ -26,6 +26,7 @@
   <exec_depend>jimmbot_description</exec_depend>
   <exec_depend>rostopic</exec_depend>
 
-  <export />
+  <export>
+  </export>
 
 </package>
