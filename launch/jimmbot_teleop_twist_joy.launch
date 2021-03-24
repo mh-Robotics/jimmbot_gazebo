@@ -2,7 +2,7 @@
 <!-- 
 MIT License
 
-@file      spawn_jimmbot.launch
+@file      jimmbot_teleop_twist_joy.launch
 @author    Mergim Halimi (m.halimi123@gmail.com)
 @copyright Copyright (c) 2020, mhRobotics, Inc., All rights reserved.
 
@@ -25,25 +25,5 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
  -->
 <launch>
-
-  <arg name="robot_namespace" default="/"/>
-
-  <arg name="x" default="0.0"/>
-  <arg name="y" default="0.0"/>
-  <arg name="z" default="1.0"/>
-  <arg name="yaw" default="0.0"/>
-
-  <include file="$(find jimmbot_controller)/launch/controller.launch" />
-
-  <!-- Spawn robot in gazebo -->
-  <node name="spawn_jimmbot_robot" pkg="gazebo_ros" type="spawn_model"
-      args="-x $(arg x)
-            -y $(arg y)
-            -z $(arg z)
-            -Y $(arg yaw)
-            -unpause
-            -urdf
-            -param robot_description
-            -model $(arg robot_namespace)" />
-
+  <include file="$(find jimmbot_controller)/launch/teleop_joy.launch" />
 </launch>

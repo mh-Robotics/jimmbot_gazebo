@@ -2,7 +2,7 @@
 <!-- 
 MIT License
 
-@file      spawn_jimmbot.launch
+@file      robot_view.launch
 @author    Mergim Halimi (m.halimi123@gmail.com)
 @copyright Copyright (c) 2020, mhRobotics, Inc., All rights reserved.
 
@@ -26,14 +26,24 @@ SOFTWARE.
  -->
 <launch>
 
+  <arg name="world_name" default="worlds/empty.world" />
   <arg name="robot_namespace" default="/"/>
-
   <arg name="x" default="0.0"/>
   <arg name="y" default="0.0"/>
   <arg name="z" default="1.0"/>
   <arg name="yaw" default="0.0"/>
 
-  <include file="$(find jimmbot_controller)/launch/controller.launch" />
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(arg world_name)"/>
+    <arg name="paused" value="false"/>
+    <arg name="use_sim_time" value="true"/>
+    <arg name="gui" value="true"/>
+    <arg name="headless" value="false"/>
+    <arg name="debug" value="false"/>
+  </include>
+
+  <!-- Load robot description -->
+  <include file="$(find jimmbot_description)/launch/description.launch" />
 
   <!-- Spawn robot in gazebo -->
   <node name="spawn_jimmbot_robot" pkg="gazebo_ros" type="spawn_model"

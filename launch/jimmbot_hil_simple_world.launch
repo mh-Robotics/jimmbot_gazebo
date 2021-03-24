@@ -2,7 +2,7 @@
 <!-- 
 MIT License
 
-@file      spawn_jimmbot.launch
+@file      jimmbot_hil_simple_world.launch
 @author    Mergim Halimi (m.halimi123@gmail.com)
 @copyright Copyright (c) 2020, mhRobotics, Inc., All rights reserved.
 
@@ -26,24 +26,24 @@ SOFTWARE.
  -->
 <launch>
 
-  <arg name="robot_namespace" default="/"/>
+  <arg name="world_name" default="$(find jimmbot_gazebo)/worlds/simple.world" />
 
-  <arg name="x" default="0.0"/>
-  <arg name="y" default="0.0"/>
-  <arg name="z" default="1.0"/>
-  <arg name="yaw" default="0.0"/>
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(arg world_name)"/>
+    <arg name="paused" value="false"/>
+    <arg name="use_sim_time" value="true"/>
+    <arg name="gui" value="true"/>
+    <arg name="headless" value="false"/>
+    <arg name="debug" value="false"/>
+  </include>
 
-  <include file="$(find jimmbot_controller)/launch/controller.launch" />
+  <include file="$(find jimmbot_gazebo)/launch/spawn_jimmbot.launch" />
 
-  <!-- Spawn robot in gazebo -->
-  <node name="spawn_jimmbot_robot" pkg="gazebo_ros" type="spawn_model"
-      args="-x $(arg x)
-            -y $(arg y)
-            -z $(arg z)
-            -Y $(arg yaw)
-            -unpause
-            -urdf
-            -param robot_description
-            -model $(arg robot_namespace)" />
+  <node name="serial_node" pkg="rosserial_python" type="serial_node.py" respawn="true">
+    <param name="port" value="/dev/esp32_ros_node"/>
+    <param name="baud" value="115200" />
+  </node>
+
+  <node pkg="jimmbot_base" type="jimmbot_base_wheel_commander_node" name="robot_wheels_in_the_loop" />
 
 </launch>
