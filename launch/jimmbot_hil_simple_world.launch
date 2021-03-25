@@ -39,11 +39,8 @@ SOFTWARE.
 
   <include file="$(find jimmbot_gazebo)/launch/spawn_jimmbot.launch" />
 
-  <node name="serial_node" pkg="rosserial_python" type="serial_node.py" respawn="true">
-    <param name="port" value="/dev/esp32_ros_node"/>
-    <param name="baud" value="115200" />
-  </node>
-
-  <node pkg="jimmbot_base" type="jimmbot_base_wheel_commander_node" name="robot_wheels_in_the_loop" />
+  <include file="$(find jimmbot_bringup)/launch/jimmbot_hw_communicator.launch" >
+    <arg name="WHEEL_HIL" value="true"/>
+  </include>
 
 </launch>
