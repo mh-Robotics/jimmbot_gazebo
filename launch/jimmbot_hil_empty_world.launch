@@ -2,9 +2,9 @@
 <!-- 
 MIT License
 
-@file      robot_view.launch
+@file      jimmbot_hil_simple_world.launch
 @author    Mergim Halimi (m.halimi123@gmail.com)
-@copyright Copyright (c) 2020, mhRobotics, Inc., All rights reserved.
+@copyright Copyright (c) 2021, mhRobotics, Inc., All rights reserved.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -27,11 +27,6 @@ SOFTWARE.
 <launch>
 
   <arg name="world_name" default="worlds/empty.world" />
-  <arg name="robot_namespace" default="/"/>
-  <arg name="x" default="0.0"/>
-  <arg name="y" default="0.0"/>
-  <arg name="z" default="1.0"/>
-  <arg name="yaw" default="0.0"/>
 
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
     <arg name="world_name" value="$(arg world_name)"/>
@@ -42,18 +37,10 @@ SOFTWARE.
     <arg name="debug" value="false"/>
   </include>
 
-  <!-- Load robot description -->
-  <include file="$(find jimmbot_description)/launch/description.launch" />
+  <include file="$(find jimmbot_gazebo)/launch/spawn_jimmbot.launch" />
 
-  <!-- Spawn robot in gazebo -->
-  <node name="spawn_jimmbot_robot" pkg="gazebo_ros" type="spawn_model"
-      args="-x $(arg x)
-            -y $(arg y)
-            -z $(arg z)
-            -Y $(arg yaw)
-            -unpause
-            -urdf
-            -param robot_description
-            -model $(arg robot_namespace)" />
+  <include file="$(find jimmbot_bringup)/launch/jimmbot_hw_communicator.launch" >
+    <arg name="WHEEL_HIL" value="true"/>
+  </include>
 
 </launch>
