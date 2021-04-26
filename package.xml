@@ -46,7 +46,7 @@ SOFTWARE.
   <exec_depend>gazebo_plugins</exec_depend>
   <exec_depend>gazebo_ros</exec_depend>
   <exec_depend>gazebo_ros_control</exec_depend>
-  <exec_depend>jimmbot_control</exec_depend>
+  <exec_depend>jimmbot_controller</exec_depend>
   <exec_depend>jimmbot_description</exec_depend>
   <exec_depend>rostopic</exec_depend>
 
