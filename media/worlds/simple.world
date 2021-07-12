@@ -51,8 +51,8 @@
           </geometry>
           <material>
             <script>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
-              <name>Gazebo/Grey</name>
+              <uri>file://media/materials/scripts/asphalt.material</uri>
+              <name>Asphalt</name>
             </script>
           </material>
         </visual>
@@ -118,8 +118,8 @@
           </geometry>
           <material>
             <script>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
-              <name>Gazebo/Grey</name>
+              <uri>file://media/materials/scripts/white_stucco.material</uri>
+              <name>WhiteStucco</name>
             </script>
             <ambient>1 1 1 1</ambient>
           </material>
@@ -163,8 +163,8 @@
           </geometry>
           <material>
             <script>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
-              <name>Gazebo/Grey</name>
+              <uri>file://media/materials/scripts/bricks.material</uri>
+              <name>Bricks</name>
             </script>
             <ambient>1 1 1 1</ambient>
           </material>
@@ -208,8 +208,8 @@
           </geometry>
           <material>
             <script>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
-              <name>Gazebo/Grey</name>
+              <uri>file://media/materials/scripts/bricks.material</uri>
+              <name>Bricks</name>
             </script>
             <ambient>1 1 1 1</ambient>
           </material>
@@ -253,8 +253,8 @@
           </geometry>
           <material>
             <script>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
-              <name>Gazebo/Grey</name>
+              <uri>file://media/materials/scripts/bricks.material</uri>
+              <name>Bricks</name>
             </script>
             <ambient>1 1 1 1</ambient>
           </material>
@@ -298,8 +298,8 @@
           </geometry>
           <material>
             <script>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
-              <name>Gazebo/Grey</name>
+              <uri>file://media/materials/scripts/bricks.material</uri>
+              <name>Bricks</name>
             </script>
             <ambient>1 1 1 1</ambient>
           </material>
@@ -343,8 +343,8 @@
           </geometry>
           <material>
             <script>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
-              <name>Gazebo/Grey</name>
+              <uri>file://media/materials/scripts/bricks.material</uri>
+              <name>Bricks</name>
             </script>
             <ambient>1 1 1 1</ambient>
           </material>
@@ -388,8 +388,8 @@
           </geometry>
           <material>
             <script>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
-              <name>Gazebo/Grey</name>
+              <uri>file://media/materials/scripts/bricks.material</uri>
+              <name>Bricks</name>
             </script>
             <ambient>1 1 1 1</ambient>
           </material>
@@ -433,8 +433,8 @@
           </geometry>
           <material>
             <script>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
-              <name>Gazebo/Grey</name>
+              <uri>file://media/materials/scripts/bricks.material</uri>
+              <name>Bricks</name>
             </script>
             <ambient>1 1 1 1</ambient>
           </material>
@@ -478,8 +478,8 @@
           </geometry>
           <material>
             <script>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
-              <name>Gazebo/Grey</name>
+              <uri>file://media/materials/scripts/bricks.material</uri>
+              <name>Bricks</name>
             </script>
             <ambient>1 1 1 1</ambient>
           </material>
@@ -523,8 +523,8 @@
           </geometry>
           <material>
             <script>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
-              <name>Gazebo/Grey</name>
+              <uri>file://media/materials/scripts/bricks.material</uri>
+              <name>Bricks</name>
             </script>
             <ambient>1 1 1 1</ambient>
           </material>
@@ -568,8 +568,8 @@
           </geometry>
           <material>
             <script>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
-              <name>Gazebo/Grey</name>
+              <uri>file://media/materials/scripts/bricks.material</uri>
+              <name>Bricks</name>
             </script>
             <ambient>1 1 1 1</ambient>
           </material>
@@ -613,8 +613,8 @@
           </geometry>
           <material>
             <script>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
-              <name>Gazebo/Grey</name>
+              <uri>file://media/materials/scripts/bricks.material</uri>
+              <name>Bricks</name>
             </script>
             <ambient>1 1 1 1</ambient>
           </material>
@@ -658,8 +658,8 @@
           </geometry>
           <material>
             <script>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
-              <name>Gazebo/Grey</name>
+              <uri>file://media/materials/scripts/bricks.material</uri>
+              <name>Bricks</name>
             </script>
             <ambient>1 1 1 1</ambient>
           </material>
@@ -703,8 +703,8 @@
           </geometry>
           <material>
             <script>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
-              <name>Gazebo/Grey</name>
+              <uri>file://media/materials/scripts/bricks.material</uri>
+              <name>Bricks</name>
             </script>
             <ambient>1 1 1 1</ambient>
           </material>
@@ -748,8 +748,8 @@
           </geometry>
           <material>
             <script>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
-              <name>Gazebo/Grey</name>
+              <uri>file://media/materials/scripts/bricks.material</uri>
+              <name>Bricks</name>
             </script>
             <ambient>1 1 1 1</ambient>
           </material>
@@ -793,8 +793,8 @@
           </geometry>
           <material>
             <script>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
-              <name>Gazebo/Grey</name>
+              <uri>file://media/materials/scripts/bricks.material</uri>
+              <name>Bricks</name>
             </script>
             <ambient>1 1 1 1</ambient>
           </material>
@@ -838,8 +838,8 @@
           </geometry>
           <material>
             <script>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
-              <name>Gazebo/Grey</name>
+              <uri>file://media/materials/scripts/bricks.material</uri>
+              <name>Bricks</name>
             </script>
             <ambient>1 1 1 1</ambient>
           </material>
@@ -883,8 +883,8 @@
           </geometry>
           <material>
             <script>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
-              <name>Gazebo/Grey</name>
+              <uri>file://media/materials/scripts/bricks.material</uri>
+              <name>Bricks</name>
             </script>
             <ambient>1 1 1 1</ambient>
           </material>
@@ -928,8 +928,8 @@
           </geometry>
           <material>
             <script>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
-              <name>Gazebo/Grey</name>
+              <uri>file://media/materials/scripts/bricks.material</uri>
+              <name>Bricks</name>
             </script>
             <ambient>1 1 1 1</ambient>
           </material>
@@ -973,8 +973,8 @@
           </geometry>
           <material>
             <script>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
-              <name>Gazebo/Grey</name>
+              <uri>file://media/materials/scripts/bricks.material</uri>
+              <name>Bricks</name>
             </script>
             <ambient>1 1 1 1</ambient>
           </material>
@@ -1018,8 +1018,8 @@
           </geometry>
           <material>
             <script>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
-              <name>Gazebo/Grey</name>
+              <uri>file://media/materials/scripts/bricks.material</uri>
+              <name>Bricks</name>
             </script>
             <ambient>1 1 1 1</ambient>
           </material>
@@ -1063,8 +1063,8 @@
           </geometry>
           <material>
             <script>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
-              <name>Gazebo/Grey</name>
+              <uri>file://media/materials/scripts/bricks.material</uri>
+              <name>Bricks</name>
             </script>
             <ambient>1 1 1 1</ambient>
           </material>
@@ -1108,8 +1108,8 @@
           </geometry>
           <material>
             <script>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
-              <name>Gazebo/Grey</name>
+              <uri>file://media/materials/scripts/bricks.material</uri>
+              <name>Bricks</name>
             </script>
             <ambient>1 1 1 1</ambient>
           </material>
@@ -1153,8 +1153,8 @@
           </geometry>
           <material>
             <script>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
-              <name>Gazebo/Grey</name>
+              <uri>file://media/materials/scripts/bricks.material</uri>
+              <name>Bricks</name>
             </script>
             <ambient>1 1 1 1</ambient>
           </material>
@@ -1198,8 +1198,8 @@
           </geometry>
           <material>
             <script>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
-              <name>Gazebo/Grey</name>
+              <uri>file://media/materials/scripts/bricks.material</uri>
+              <name>Bricks</name>
             </script>
             <ambient>1 1 1 1</ambient>
           </material>

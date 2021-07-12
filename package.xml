@@ -50,6 +50,9 @@ SOFTWARE.
   <exec_depend>jimmbot_description</exec_depend>
   <exec_depend>rostopic</exec_depend>
 
-  <export />
+  <export>
+    <gazebo_ros gazebo_model_path="${prefix}/models"/>
+    <gazebo_ros gazebo_media_path="${prefix}"/>
+  </export>
 
 </package>
