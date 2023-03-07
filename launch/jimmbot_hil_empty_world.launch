@@ -39,8 +39,6 @@ SOFTWARE.
 
   <include file="$(find jimmbot_gazebo)/launch/spawn_jimmbot.launch" />
 
-  <include file="$(find jimmbot_bringup)/launch/jimmbot_hw_communicator.launch" >
-    <arg name="WHEEL_HIL" value="true"/>
-  </include>
+  <include file="$(find jimmbot_bringup)/launch/jimmbot_hw_bridge.launch" />
 
 </launch>
