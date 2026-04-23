@@ -3,6 +3,7 @@ from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription
 from launch.conditions import IfCondition, UnlessCondition
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration, PathJoinSubstitution
+from launch_ros.actions import Node
 from launch_ros.substitutions import FindPackageShare
 
 
@@ -14,6 +15,7 @@ def generate_launch_description():
     yaw = LaunchConfiguration('yaw')
     world_sdf = LaunchConfiguration('world_sdf')
     headless = LaunchConfiguration('headless')
+    bridge_sensors = LaunchConfiguration('bridge_sensors')
 
     description_launch = PathJoinSubstitution(
         [FindPackageShare('jimmbot_description'), 'launch', 'description.launch.py']
@@ -23,6 +25,9 @@ def generate_launch_description():
     )
     spawn_launch = PathJoinSubstitution(
         [FindPackageShare('ros_gz_sim'), 'launch', 'gz_spawn_model.launch.py']
+    )
+    bridge_config = PathJoinSubstitution(
+        [FindPackageShare('jimmbot_gazebo'), 'config', 'sensor_bridge.yaml']
     )
 
     return LaunchDescription([
@@ -45,6 +50,11 @@ def generate_launch_description():
             default_value='false',
             description='Run Gazebo Sim server-only when true.',
         ),
+        DeclareLaunchArgument(
+            'bridge_sensors',
+            default_value='true',
+            description='Bridge Gazebo sensor topics to ROS 2 topics.',
+        ),
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource(sim_launch),
             launch_arguments={
@@ -61,6 +71,14 @@ def generate_launch_description():
         ),
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource(description_launch),
+        ),
+        Node(
+            package='ros_gz_bridge',
+            executable='parameter_bridge',
+            name='jimmbot_sensor_bridge',
+            output='screen',
+            parameters=[{'config_file': bridge_config}],
+            condition=IfCondition(bridge_sensors),
         ),
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource(spawn_launch),
