@@ -1,8 +1,10 @@
+import os
+
 from launch import LaunchDescription
-from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription
+from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription, SetEnvironmentVariable
 from launch.conditions import IfCondition, UnlessCondition
 from launch.launch_description_sources import PythonLaunchDescriptionSource
-from launch.substitutions import LaunchConfiguration, PathJoinSubstitution
+from launch.substitutions import EnvironmentVariable, LaunchConfiguration, PathJoinSubstitution
 from launch_ros.actions import Node
 from launch_ros.substitutions import FindPackageShare
 
@@ -14,8 +16,14 @@ def generate_launch_description():
     z = LaunchConfiguration('z')
     yaw = LaunchConfiguration('yaw')
     world_sdf = LaunchConfiguration('world_sdf')
+    world_name = LaunchConfiguration('world_name')
     headless = LaunchConfiguration('headless')
     bridge_sensors = LaunchConfiguration('bridge_sensors')
+    use_sim_time = LaunchConfiguration('use_sim_time')
+    enable_control = LaunchConfiguration('enable_control')
+
+    gazebo_share = FindPackageShare('jimmbot_gazebo')
+    description_share = FindPackageShare('jimmbot_description')
 
     description_launch = PathJoinSubstitution(
         [FindPackageShare('jimmbot_description'), 'launch', 'description.launch.py']
@@ -46,6 +54,11 @@ def generate_launch_description():
             description='Gazebo Sim world file name.',
         ),
         DeclareLaunchArgument(
+            'world_name',
+            default_value='default',
+            description='World name inside the SDF used for spawning.',
+        ),
+        DeclareLaunchArgument(
             'headless',
             default_value='false',
             description='Run Gazebo Sim server-only when true.',
@@ -54,6 +67,26 @@ def generate_launch_description():
             'bridge_sensors',
             default_value='true',
             description='Bridge Gazebo sensor topics to ROS 2 topics.',
+        ),
+        DeclareLaunchArgument(
+            'use_sim_time',
+            default_value='true',
+            description='Use simulation clock for robot_state_publisher.',
+        ),
+        DeclareLaunchArgument(
+            'enable_control',
+            default_value='true',
+            description='Load Gazebo control plugin interfaces from the robot description.',
+        ),
+        SetEnvironmentVariable(
+            name='GZ_SIM_RESOURCE_PATH',
+            value=[
+                gazebo_share,
+                os.pathsep,
+                description_share,
+                os.pathsep,
+                EnvironmentVariable('GZ_SIM_RESOURCE_PATH', default_value=''),
+            ],
         ),
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource(sim_launch),
@@ -71,6 +104,10 @@ def generate_launch_description():
         ),
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource(description_launch),
+            launch_arguments={
+                'use_sim_time': use_sim_time,
+                'enable_control': enable_control,
+            }.items(),
         ),
         Node(
             package='ros_gz_bridge',
@@ -83,7 +120,7 @@ def generate_launch_description():
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource(spawn_launch),
             launch_arguments={
-                'world': 'empty',
+                'world': world_name,
                 'topic': 'robot_description',
                 'entity_name': robot_namespace,
                 'x': x,
