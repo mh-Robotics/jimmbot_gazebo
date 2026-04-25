@@ -117,6 +117,26 @@ def generate_launch_description():
             parameters=[{'config_file': bridge_config}],
             condition=IfCondition(bridge_sensors),
         ),
+        Node(
+            package='ros_gz_bridge',
+            executable='parameter_bridge',
+            name='jimmbot_joint_state_bridge',
+            output='screen',
+            arguments=[[
+                '/world/',
+                world_name,
+                '/model/',
+                robot_namespace,
+                '/joint_state@sensor_msgs/msg/JointState[gz.msgs.Model',
+            ]],
+            remappings=[
+                (
+                    ['/world/', world_name, '/model/', robot_namespace, '/joint_state'],
+                    'joint_states',
+                ),
+            ],
+            condition=IfCondition(bridge_sensors),
+        ),
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource(spawn_launch),
             launch_arguments={
