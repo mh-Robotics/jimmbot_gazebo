@@ -1,0 +1,147 @@
+<?xml version="1.0" ?>
+<sdf version="1.8">
+  <world name="default">
+    <!-- Physics engine configuration -->
+    <physics type="ode">
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1</real_time_factor>
+    </physics>
+
+    <!-- Lighting -->
+    <light type="directional" name="sun">
+      <cast_shadows>true</cast_shadows>
+      <pose>0 0 10 0 0 0</pose>
+      <diffuse>0.8 0.8 0.8 1</diffuse>
+      <specular>0.2 0.2 0.2 1</specular>
+      <attenuation>
+        <range>1000</range>
+        <constant>0.9</constant>
+        <linear>0.01</linear>
+        <quadratic>0.001</quadratic>
+      </attenuation>
+      <direction>-0.5 0.5 -1</direction>
+    </light>
+
+    <!-- Ground plane -->
+    <model name="ground_plane">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>100 100</size>
+            </plane>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>100 100</size>
+            </plane>
+          </geometry>
+          <material>
+            <ambient>0.8 0.8 0.8 1</ambient>
+            <diffuse>0.8 0.8 0.8 1</diffuse>
+            <specular>0.8 0.8 0.8 1</specular>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Simple depot structure (optional demo structure) -->
+    <model name="depot">
+      <static>true</static>
+      <pose>5 0 0 0 0 0</pose>
+      
+      <!-- Depot posts -->
+      <link name="post_1">
+        <pose>0 0 0.5 0 0 0</pose>
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.2 0.2 1</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.2 0.2 1</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.5 0.5 0.5 1</ambient>
+            <diffuse>0.6 0.6 0.6 1</diffuse>
+          </material>
+        </visual>
+      </link>
+
+      <link name="post_2">
+        <pose>3 0 0.5 0 0 0</pose>
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.2 0.2 1</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.2 0.2 1</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.5 0.5 0.5 1</ambient>
+            <diffuse>0.6 0.6 0.6 1</diffuse>
+          </material>
+        </visual>
+      </link>
+
+      <!-- Depot roof -->
+      <link name="roof">
+        <pose>1.5 0 1.2 0 0 0</pose>
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>3.2 1 0.1</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>3.2 1 0.1</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.7 0.3 0.3 1</ambient>
+            <diffuse>0.8 0.4 0.4 1</diffuse>
+          </material>
+        </visual>
+      </link>
+
+      <joint name="post_1_joint" type="fixed">
+        <parent>world</parent>
+        <child>post_1</child>
+      </joint>
+      <joint name="post_2_joint" type="fixed">
+        <parent>world</parent>
+        <child>post_2</child>
+      </joint>
+      <joint name="roof_joint" type="fixed">
+        <parent>post_1</parent>
+        <child>roof</child>
+      </joint>
+    </model>
+
+    <!-- Grid visualization -->
+    <gui fullscreen="0">
+      <camera>
+        <pose>0 0 10 0 1.57 0</pose>
+      </camera>
+    </gui>
+  </world>
+</sdf>

@@ -8,7 +8,7 @@ endif()
 find_package(ament_cmake REQUIRED)
 
 install(
-  DIRECTORY config launch media models
+  DIRECTORY config launch media
   DESTINATION share/${PROJECT_NAME}
 )
 

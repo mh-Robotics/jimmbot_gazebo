@@ -1,13 +1,43 @@
+import os
+
 from launch import LaunchDescription
-from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription
+from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription, SetEnvironmentVariable
+from launch.conditions import IfCondition, UnlessCondition
 from launch.launch_description_sources import PythonLaunchDescriptionSource
-from launch.substitutions import LaunchConfiguration, PathJoinSubstitution
+from launch.substitutions import EnvironmentVariable, LaunchConfiguration, PathJoinSubstitution
+from launch_ros.actions import Node
 from launch_ros.substitutions import FindPackageShare
 
 
 def generate_launch_description():
+    """Launch jimmbot in Gazebo Sim empty world with sensor bridges."""
+    world_name = 'empty'
+    robot_namespace = LaunchConfiguration('robot_namespace')
+    x = LaunchConfiguration('x')
+    y = LaunchConfiguration('y')
+    z = LaunchConfiguration('z')
+    yaw = LaunchConfiguration('yaw')
+    headless = LaunchConfiguration('headless')
+    bridge_sensors = LaunchConfiguration('bridge_sensors')
+    use_sim_time = LaunchConfiguration('use_sim_time')
+
+    gazebo_share = FindPackageShare('jimmbot_gazebo')
+    description_share = FindPackageShare('jimmbot_description')
+
+    description_launch = PathJoinSubstitution(
+        [FindPackageShare('jimmbot_description'), 'launch', 'description.launch.py']
+    )
+    sim_launch = PathJoinSubstitution(
+        [FindPackageShare('ros_gz_sim'), 'launch', 'gz_sim.launch.py']
+    )
     spawn_launch = PathJoinSubstitution(
         [FindPackageShare('jimmbot_gazebo'), 'launch', 'spawn_jimmbot.launch.py']
+    )
+    bridge_config = PathJoinSubstitution(
+        [FindPackageShare('jimmbot_gazebo'), 'config', 'sensor_bridge.yaml']
+    )
+    server_config = PathJoinSubstitution(
+        [FindPackageShare('jimmbot_gazebo'), 'config', 'server.config']
     )
 
     return LaunchDescription([
@@ -16,27 +46,96 @@ def generate_launch_description():
         DeclareLaunchArgument('y', default_value='0.0'),
         DeclareLaunchArgument('z', default_value='1.0'),
         DeclareLaunchArgument('yaw', default_value='0.0'),
-        DeclareLaunchArgument('headless', default_value='false'),
-        DeclareLaunchArgument('bridge_sensors', default_value='true'),
-        DeclareLaunchArgument('enable_control', default_value='true'),
         DeclareLaunchArgument(
-            'world_name',
-            default_value='empty',
-            description='World name inside the SDF used for spawning.',
+            'headless',
+            default_value='false',
+            description='Run Gazebo Sim server-only when true.',
+        ),
+        DeclareLaunchArgument(
+            'bridge_sensors',
+            default_value='true',
+            description='Bridge Gazebo sensor topics to ROS 2 topics.',
+        ),
+        DeclareLaunchArgument(
+            'use_sim_time',
+            default_value='true',
+            description='Use simulation clock.',
+        ),
+        SetEnvironmentVariable(
+            name='GZ_SIM_RESOURCE_PATH',
+            value=[
+                gazebo_share,
+                os.pathsep,
+                description_share,
+                os.pathsep,
+                EnvironmentVariable('GZ_SIM_RESOURCE_PATH', default_value=''),
+            ],
+        ),
+        SetEnvironmentVariable(
+            name='GZ_SIM_SERVER_CONFIG_PATH',
+            value=server_config,
+        ),
+        SetEnvironmentVariable(
+            name='IGN_GAZEBO_SERVER_CONFIG_PATH',
+            value=server_config,
+        ),
+        IncludeLaunchDescription(
+            PythonLaunchDescriptionSource(sim_launch),
+            launch_arguments={
+                'gz_args': ['-r -s ', 'empty.sdf'],
+            }.items(),
+            condition=IfCondition(headless),
+        ),
+        IncludeLaunchDescription(
+            PythonLaunchDescriptionSource(sim_launch),
+            launch_arguments={
+                'gz_args': ['-r ', 'empty.sdf'],
+            }.items(),
+            condition=UnlessCondition(headless),
+        ),
+        IncludeLaunchDescription(
+            PythonLaunchDescriptionSource(description_launch),
+            launch_arguments={
+                'use_sim_time': use_sim_time,
+            }.items(),
+        ),
+        Node(
+            package='ros_gz_bridge',
+            executable='parameter_bridge',
+            name='jimmbot_sensor_bridge',
+            output='screen',
+            parameters=[{'config_file': bridge_config}],
+            condition=IfCondition(bridge_sensors),
+        ),
+        Node(
+            package='ros_gz_bridge',
+            executable='parameter_bridge',
+            name='jimmbot_joint_state_bridge',
+            output='screen',
+            arguments=[[
+                '/world/',
+                world_name,
+                '/model/',
+                robot_namespace,
+                '/joint_state@sensor_msgs/msg/JointState[gz.msgs.Model',
+            ]],
+            remappings=[
+                (
+                    ['/world/', world_name, '/model/', robot_namespace, '/joint_state'],
+                    'joint_states',
+                ),
+            ],
+            condition=IfCondition(bridge_sensors),
         ),
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource(spawn_launch),
             launch_arguments={
-                'robot_namespace': LaunchConfiguration('robot_namespace'),
-                'x': LaunchConfiguration('x'),
-                'y': LaunchConfiguration('y'),
-                'z': LaunchConfiguration('z'),
-                'yaw': LaunchConfiguration('yaw'),
-                'headless': LaunchConfiguration('headless'),
-                'bridge_sensors': LaunchConfiguration('bridge_sensors'),
-                'enable_control': LaunchConfiguration('enable_control'),
-                'world_name': LaunchConfiguration('world_name'),
-                'world_sdf': 'empty.sdf',
+                'robot_namespace': robot_namespace,
+                'x': x,
+                'y': y,
+                'z': z,
+                'yaw': yaw,
+                'world_name': world_name,
             }.items(),
         ),
     ])
