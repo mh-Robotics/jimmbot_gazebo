@@ -19,6 +19,7 @@ def generate_launch_description():
     yaw = LaunchConfiguration('yaw')
     headless = LaunchConfiguration('headless')
     bridge_sensors = LaunchConfiguration('bridge_sensors')
+    start_controllers = LaunchConfiguration('start_controllers')
     use_sim_time = LaunchConfiguration('use_sim_time')
 
     gazebo_share = FindPackageShare('jimmbot_gazebo')
@@ -27,11 +28,17 @@ def generate_launch_description():
     description_launch = PathJoinSubstitution(
         [FindPackageShare('jimmbot_description'), 'launch', 'description.launch.py']
     )
+    gz_control_config = PathJoinSubstitution(
+        [FindPackageShare('jimmbot_controller'), 'config', 'gz_control.yaml']
+    )
     sim_launch = PathJoinSubstitution(
         [FindPackageShare('ros_gz_sim'), 'launch', 'gz_sim.launch.py']
     )
     spawn_launch = PathJoinSubstitution(
         [FindPackageShare('jimmbot_gazebo'), 'launch', 'spawn_jimmbot.launch.py']
+    )
+    controller_launch = PathJoinSubstitution(
+        [FindPackageShare('jimmbot_controller'), 'launch', 'controller.launch.py']
     )
     bridge_config = PathJoinSubstitution(
         [FindPackageShare('jimmbot_gazebo'), 'config', 'sensor_bridge.yaml']
@@ -55,6 +62,11 @@ def generate_launch_description():
             'bridge_sensors',
             default_value='true',
             description='Bridge Gazebo sensor topics to ROS 2 topics.',
+        ),
+        DeclareLaunchArgument(
+            'start_controllers',
+            default_value='true',
+            description='Spawn ros2_control controllers for simulated motion.',
         ),
         DeclareLaunchArgument(
             'use_sim_time',
@@ -97,6 +109,7 @@ def generate_launch_description():
             PythonLaunchDescriptionSource(description_launch),
             launch_arguments={
                 'use_sim_time': use_sim_time,
+                'gz_control_params_file': gz_control_config,
             }.items(),
         ),
         Node(
@@ -137,5 +150,12 @@ def generate_launch_description():
                 'yaw': yaw,
                 'world_name': world_name,
             }.items(),
+        ),
+        IncludeLaunchDescription(
+            PythonLaunchDescriptionSource(controller_launch),
+            launch_arguments={
+                'use_sim_time': use_sim_time,
+            }.items(),
+            condition=IfCondition(start_controllers),
         ),
     ])
