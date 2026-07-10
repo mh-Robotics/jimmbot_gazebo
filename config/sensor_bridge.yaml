@@ -21,60 +21,70 @@
   ros_type_name: "sensor_msgs/msg/Image"
   gz_type_name: "gz.msgs.Image"
   direction: GZ_TO_ROS
+  lazy: true
 
 - ros_topic_name: "/kinect_front/depth/camera_info"
   gz_topic_name: "/kinect_front/depth/camera_info"
   ros_type_name: "sensor_msgs/msg/CameraInfo"
   gz_type_name: "gz.msgs.CameraInfo"
   direction: GZ_TO_ROS
+  lazy: true
 
 - ros_topic_name: "/kinect_front/depth/image_raw/points"
   gz_topic_name: "/kinect_front/depth/image_raw/points"
   ros_type_name: "sensor_msgs/msg/PointCloud2"
   gz_type_name: "gz.msgs.PointCloudPacked"
   direction: GZ_TO_ROS
+  lazy: true
 
 - ros_topic_name: "/kinect_front/rgb/image_raw"
   gz_topic_name: "/kinect_front/rgb/image_raw"
   ros_type_name: "sensor_msgs/msg/Image"
   gz_type_name: "gz.msgs.Image"
   direction: GZ_TO_ROS
+  lazy: true
 
 - ros_topic_name: "/kinect_front/rgb/camera_info"
   gz_topic_name: "/kinect_front/rgb/camera_info"
   ros_type_name: "sensor_msgs/msg/CameraInfo"
   gz_type_name: "gz.msgs.CameraInfo"
   direction: GZ_TO_ROS
+  lazy: true
 
 - ros_topic_name: "/kinect_back/depth/image_raw"
   gz_topic_name: "/kinect_back/depth/image_raw"
   ros_type_name: "sensor_msgs/msg/Image"
   gz_type_name: "gz.msgs.Image"
   direction: GZ_TO_ROS
+  lazy: true
 
 - ros_topic_name: "/kinect_back/depth/camera_info"
   gz_topic_name: "/kinect_back/depth/camera_info"
   ros_type_name: "sensor_msgs/msg/CameraInfo"
   gz_type_name: "gz.msgs.CameraInfo"
   direction: GZ_TO_ROS
+  lazy: true
 
 - ros_topic_name: "/kinect_back/depth/image_raw/points"
   gz_topic_name: "/kinect_back/depth/image_raw/points"
   ros_type_name: "sensor_msgs/msg/PointCloud2"
   gz_type_name: "gz.msgs.PointCloudPacked"
   direction: GZ_TO_ROS
+  lazy: true
 
 - ros_topic_name: "/kinect_back/rgb/image_raw"
   gz_topic_name: "/kinect_back/rgb/image_raw"
   ros_type_name: "sensor_msgs/msg/Image"
   gz_type_name: "gz.msgs.Image"
   direction: GZ_TO_ROS
+  lazy: true
 
 - ros_topic_name: "/kinect_back/rgb/camera_info"
   gz_topic_name: "/kinect_back/rgb/camera_info"
   ros_type_name: "sensor_msgs/msg/CameraInfo"
   gz_type_name: "gz.msgs.CameraInfo"
   direction: GZ_TO_ROS
+  lazy: true
 
 - ros_topic_name: "/gps/fix_front"
   gz_topic_name: "/gps/fix_front"
